@@ -11,12 +11,12 @@ from functools import reduce
 
 from easyauditel.utils import get_date_intervals, get_year_month_intervals
 
-def read_csv_from_s3(spark, s3_path, sep=';', header=True):
+def read_csv_from_s3(spark, s3_path: str, sep=';', header=True):
     return spark.read.csv(s3_path, sep=sep, header=header)
 
 
-def read_fianag(spark, s3_fianag_base_path, start_date, end_date,
-                  date_format, fruition_type):
+def read_fianag(spark, s3_fianag_base_path: str, start_date: str, end_date: str,
+                  date_format: str, fruition_type: str):
     '''
     Funzione che legge il dato elementare del campione prodotto (fianag) nell'intervallo di tempo desiderato
     e lo carica su dataframe Spark.
@@ -26,7 +26,7 @@ def read_fianag(spark, s3_fianag_base_path, start_date, end_date,
     (sociodemo), viene aggiunta artificialmente la colonna, riempita con valori null, per uniformare il tracciato.
 
     Args:
-        s3_fianag_base_path (str): path di S3 del file fianag (con le informazioni sui panelist prodotti giornalmente)
+        s3_fianag_base_path (str): path di S3 del file fianag (con le informazioni sui panelisti prodotti giornalmente)
         start_date (str): data iniziale
         end_date (str): data finale
         date_format (str): formato delle date passate alla funzione
