@@ -3,7 +3,7 @@ import datetime
 from datetime import date
 from datetime import timedelta
 
-def get_date_intervals(start_date: str, end_date: str, input_date_format: str, output_date_format: str) -> list[str]:
+def get_date_intervals(start_date: str, end_date: str, input_date_format: str, output_date_format: str):
     '''
     Funzione che accetta una data iniziale e una data finale, come stringhe, e restituisce una lista di
     date comprese tra queste, come stringhe, nel formato specificato.
@@ -33,7 +33,7 @@ def get_date_intervals(start_date: str, end_date: str, input_date_format: str, o
 
     return date_intervals
 
-def get_year_month_intervals(start_date: str, end_date: str, date_format: str) -> set[tuple[str]]:
+def get_year_month_intervals(start_date: str, end_date: str, date_format: str):
     '''
     Funzione che accetta una data iniziale e una data finale, come stringhe, e restituisce un insieme di tuple
     (anno, mese), comprese tra le due date.
