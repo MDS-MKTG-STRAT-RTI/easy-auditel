@@ -1,1 +1,1 @@
-from easyauditel.load.load_data import ReadFianag
+from easyauditel.load.fianag import read_fianag

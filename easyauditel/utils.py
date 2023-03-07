@@ -62,3 +62,6 @@ def get_year_month_intervals(start_date: str, end_date: str, date_format: str) -
     year_month_set = set(year_month)
 
     return year_month_set
+
+def read_csv_from_s3(spark, s3_path: str, sep=';', header=True):
+    return spark.read.csv(s3_path, sep=sep, header=header)
