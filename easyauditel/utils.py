@@ -3,6 +3,9 @@ import datetime
 from datetime import date
 from datetime import timedelta
 
+def read_csv_from_s3(spark, s3_path: str, sep=';', header=True):
+    return spark.read.csv(s3_path, sep=sep, header=header)
+
 def get_date_intervals(start_date: str, end_date: str, input_date_format: str, output_date_format: str):
     '''
     Funzione che accetta una data iniziale e una data finale, come stringhe, e restituisce una lista di
@@ -63,5 +66,41 @@ def get_year_month_intervals(start_date: str, end_date: str, date_format: str):
 
     return year_month_set
 
-def read_csv_from_s3(spark, s3_path: str, sep=';', header=True):
-    return spark.read.csv(s3_path, sep=sep, header=header)
+def date_time_to_timestamp(date, time):
+    '''
+    Funzione che accetta una data e un'ora in formato stringa and restituisce un timestamp 
+    nel formato YYYY-MM-DD HH:MM:SS
+    
+    Args:
+        date (str): data nel formato YYYYMMDD
+        time (str): tempo nel formato HHMMSS
+        
+    Returns:
+        normalized_timestamp (datetime): timestamp nel formato YYYY-MM-DD HH:MM:SS
+    '''
+    hour = int(time[:2])
+    date_ = datetime.datetime.strptime(date, "%Y%m%d")
+    if hour >= 24:
+        normalized_time_str = str(hour - 24).zfill(2) + time[2:]
+        normalized_date_str = (date_ + timedelta(days=1)).strftime("%Y%m%d")
+        normalized_timestamp_str = f'{normalized_date_str}{normalized_time_str}'
+        normalized_timestamp = datetime.datetime.strptime(normalized_timestamp_str, "%Y%m%d%H%M%S")
+    else:
+        normalized_timestamp = datetime.datetime.strptime(date + time, "%Y%m%d%H%M%S")
+
+    return normalized_timestamp
+
+def add_minute(date, durata):
+    '''
+    Funzione per aggiungere una durata in minuti ad una data
+    
+    Args:
+        date (datetime): data
+        durata (int): minuti da aggiungere
+    
+    Returns:
+        new_date (date): nuova data con minuti aggiunti
+    '''
+    new_date = date + timedelta(minutes=durata)
+    
+    return new_date
