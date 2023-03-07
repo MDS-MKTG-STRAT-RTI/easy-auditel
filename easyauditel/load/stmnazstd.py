@@ -12,8 +12,12 @@ from functools import reduce
 from easyauditel.utils import get_date_intervals, get_year_month_intervals
 from easyauditel.utils import read_csv_from_s3
 
-def read_stmnazstd(spark, s3_stmnazstd_base_path, s3_class_ascolto_path, s3_class_device_path, start_date, end_date,
-                  date_format, fruition_type):
+def read_stmnazstd(spark, start_date: str, end_date: str,
+                  date_format: str, fruition_type: str,
+                  s3_stmnazstd_base_path='s3://dl-agb-prod/dl_rti/dl_agb_stmnazstd/daily', 
+                  s3_class_ascolto_path='s3://dl-agb-prod/dl_rti/dl_agb_classificazioneascolto/daily', 
+                  s3_class_device_path='s3://dl-agb-prod/dl_rti/dl_agb_classificazionedevice/daily'
+                  ):
     '''
     Funzione che legge il dato elementare delle fruizioni (stmnazstd) nell'intervallo di tempo desiderato
     e lo carica su dataframe Spark.
@@ -22,14 +26,13 @@ def read_stmnazstd(spark, s3_stmnazstd_base_path, s3_class_ascolto_path, s3_clas
     a seguito della produzione di nuovi file sulla classificazione dell'ascolto e dei device.
 
     Args:
-        s3_stmnazstd_base_path (str): path di S3 del file fianag (con le informazioni sulle fruizioni giornaliere)
-        s3_class_ascolto_path (str): path di S3 del file classificazioneascolto (con la transcodifica dei codici di classificazione ascolto)
-        s3_class_device_path (str): path di S3 del file classificazionedevice (con la transcodifica dei codici di classificazione device)
-        
         start_date (str): data iniziale
         end_date (str): data finale
         date_format (str): formato delle date passate alla funzione
         fruition_type (list): lista con le tipologie di fruizione da considerare (e.g. ['I', 'G'] per "Individual" e "Guest")
+        s3_stmnazstd_base_path (str): path di S3 del file fianag (con le informazioni sulle fruizioni giornaliere)
+        s3_class_ascolto_path (str): path di S3 del file classificazioneascolto (con la transcodifica dei codici di classificazione ascolto)
+        s3_class_device_path (str): path di S3 del file classificazionedevice (con la transcodifica dei codici di classificazione device)
 
     Returns:
         stmnazstd (Spark df): dataframe con i dati di fruizione stmnazstd nell'arco temporale desiderato
