@@ -1,0 +1,1 @@
+from easyauditel.preprocessing.enrichment import enrich_fruitions_tot
