@@ -13,7 +13,7 @@ from easyauditel.utils import get_date_intervals, get_year_month_intervals
 from easyauditel.utils import read_csv_from_s3
 
 def read_fianag(spark, start_date: str, end_date: str,
-                  date_format: str, fruition_type: str,
+                  date_format: str, fruition_type,
                   s3_fianag_base_path='s3://dl-agb-prod/dl_rti/dl_agb_fianag/daily'
                   ):
     '''
