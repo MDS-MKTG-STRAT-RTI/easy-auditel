@@ -46,8 +46,6 @@ def read_stmnazstd(spark, start_date: str, end_date: str,
     stmnazstd_dict = {}
     class_ascolto_dict = {}
     class_device_dict = {}
-    sociodemo = ["DATA","PANEL","PRG","TIPO","FAT_EXP","CS","CSE","STUDI","SESSO","ETA11","ABBONATO","ETA22","SKY CINEMA","SKY SPORT","SKY CALCIO",
-             "MYSKY","NUOVECLASSIETA","REGIONE","CSE30","BROADBAND"]
     
     new_track = False
     for i, (y, m) in enumerate(year_month_intervals):
